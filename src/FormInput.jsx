@@ -1,27 +1,30 @@
 import React from "react";
 
-const FormInput = ({
-  label,
-  id,
-  name,
-  value,
-  onChange,
-  type = "text",
-  required = false,
-}) => {
+const FormInput = (
+  props
+  //     {
+  //   label,
+  //   id,
+  //   name,
+  //   value,
+  //   onChange,
+  //   type = "text",
+  //   required = false,
+  //     }
+) => {
   return (
     <div className="mb-4">
-      <label htmlFor={id} className="block mb-2">
-        {label}
+      <label htmlFor={props.id} className="block mb-2">
+        {props.label}
       </label>
       <input
-        type={type}
-        id={id}
-        name={name}
-        value={value}
-        onChange={onChange}
+        type={props.type}
+        id={props.id}
+        name={props.name}
+        value={props.value}
+        onChange={props.onChange}
         className="border border-gray-300 p-2 rounded-md w-full"
-        required={required}
+        required={props.required}
       />
     </div>
   );

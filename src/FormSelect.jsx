@@ -1,28 +1,21 @@
 import React from "react";
 
-const FormSelect = ({
-  label,
-  id,
-  name,
-  value,
-  onChange,
-  options,
-  required = false,
-}) => {
+const FormSelect = (props) => {
   return (
     <div className="mb-4">
-      <label htmlFor={id} className="block mb-2">
-        {label}
+      <label htmlFor={props.id} className="block mb-2">
+        {props.label}
       </label>
       <select
-        id={id}
-        name={name}
-        value={value}
-        onChange={onChange}
+        id={props.id}
+        name={props.name}
+        value={props.value}
+        onChange={props.onChange}
         className="border border-gray-300 p-2 rounded-md w-full"
-        required={required}
+        required={props.required}
+        multiple={props.multiple}
       >
-        {options.map((option, index) => (
+        {props.options.map((option, index) => (
           <option key={index} value={option.value}>
             {option.label}
           </option>

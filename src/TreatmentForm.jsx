@@ -35,11 +35,15 @@ const TreatmentForm = () => {
 
   const handleChange = (e) => {
     const { name, value, options } = e.target;
-    const selectedOptions = Array.from(options)
-      .filter((option) => option.selected)
-      .map((option) => option.value);
+    // Periksa apakah options tidak undefined sebelum mengonversinya menjadi array
+    const selectedOptions = options
+      ? Array.from(options)
+          .filter((option) => option.selected)
+          .map((option) => option.value)
+      : [];
 
-    setFormData({ ...formData, [name]: selectedOptions });
+    // Gabungkan kedua pembaruan menjadi satu panggilan ke setFormData
+    setFormData({ ...formData, [name]: options ? selectedOptions : value });
   };
 
   const [loading, setLoading] = useState(false); // state for loading status
@@ -68,127 +72,6 @@ const TreatmentForm = () => {
       });
   };
 
-  //   return (
-  // <div className="p-4">
-  //   <form id="formID" onSubmit={handleSubmit} method="POST">
-  //     <div className="mb-4">
-  //       <label htmlFor="patientName" className="block mb-2">
-  //         Patient Name:
-  //       </label>
-  //       <input
-  //         type="text"
-  //         id="patientName"
-  //         name="patientName"
-  //         value={formData.patientName}
-  //         onChange={(e) =>
-  //           setFormData({ ...formData, patientName: e.target.value })
-  //         }
-  //         className="border border-gray-300 p-2 rounded-md w-full"
-  //         required
-  //       />
-  //     </div>
-  //     <div className="mb-4">
-  //       <label htmlFor="patientId" className="block mb-2">
-  //         Patient ID:
-  //       </label>
-  //       <input
-  //         type="text"
-  //         id="patientId"
-  //         name="patientId"
-  //         value={formData.patientId}
-  //         onChange={(e) =>
-  //           setFormData({ ...formData, patientId: e.target.value })
-  //         }
-  //         className="border border-gray-300 p-2 rounded-md w-full"
-  //         required
-  //       />
-  //     </div>
-  //     <div className="mb-4">
-  //       <label htmlFor="dateOfTreatment" className="block mb-2">
-  //         Date of Treatment:
-  //       </label>
-  //       <input
-  //         type="date"
-  //         id="dateOfTreatment"
-  //         name="dateOfTreatment"
-  //         value={formData.dateOfTreatment}
-  //         onChange={(e) =>
-  //           setFormData({ ...formData, dateOfTreatment: e.target.value })
-  //         }
-  //         className="border border-gray-300 p-2 rounded-md w-full"
-  //         required
-  //       />
-  //     </div>
-  //     <div className="mb-4">
-  //       <label htmlFor="treatmentDescription" className="block mb-2">
-  //         Treatment Description:
-  //       </label>
-  //       <select
-  //         multiple
-  //         id="treatmentDescription"
-  //         name="treatmentDescription"
-  //         value={formData.treatmentDescription}
-  //         onChange={handleChange}
-  //         className="border border-gray-300 p-2 rounded-md w-full"
-  //         required
-  //       >
-  //         <option value="Treatment 1">Treatment 1</option>
-  //         <option value="Treatment 2">Treatment 2</option>
-  //         <option value="Treatment 3">Treatment 3</option>
-  //       </select>
-  //     </div>
-  //     <div className="mb-4">
-  //       <label htmlFor="medicationsPrescribed" className="block mb-2">
-  //         Medications Prescribed:
-  //       </label>
-  //       <select
-  //         multiple
-  //         id="medicationsPrescribed"
-  //         name="medicationsPrescribed"
-  //         value={formData.medicationsPrescribed}
-  //         onChange={handleChange}
-  //         className="border border-gray-300 p-2 rounded-md w-full"
-  //         required
-  //       >
-  //         <option value="Medication 1">Medication 1</option>
-  //         <option value="Medication 2">Medication 2</option>
-  //         <option value="Medication 3">Medication 3</option>
-  //       </select>
-  //     </div>
-  //     <div className="mb-4">
-  //       <label htmlFor="costOfTreatment" className="block mb-2">
-  //         Cost of Treatment:
-  //       </label>
-  //       <input
-  //         type="number"
-  //         id="costOfTreatment"
-  //         name="costOfTreatment"
-  //         value={formData.costOfTreatment}
-  //         onChange={(e) =>
-  //           setFormData({ ...formData, costOfTreatment: e.target.value })
-  //         }
-  //         className="border border-gray-300 p-2 rounded-md w-full"
-  //         required
-  //       />
-  //     </div>
-  //     <button
-  //       type="submit"
-  //       className={`bg-blue-500 text-white font-bold py-2 px-4 rounded ${
-  //         loading ? "opacity-50 cursor-not-allowed" : ""
-  //       }`}
-  //       disabled={loading}
-  //     >
-  //       {loading ? "Submitting..." : "Submit"}
-  //     </button>
-  //     {/* <button
-  //       type="submit"
-  //       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-  //     >
-  //       Submit
-  //     </button> */}
-  //   </form>
-  // </div>
-  //   );
   const treatmentOptions = [
     { label: "Treatment 1", value: "Treatment 1" },
     { label: "Treatment 2", value: "Treatment 2" },
@@ -210,7 +93,7 @@ const TreatmentForm = () => {
           name="patientName"
           value={formData.patientName}
           onChange={handleChange}
-          required
+          required={true}
         />
         <FormInput
           label="Patient ID:"
@@ -218,7 +101,7 @@ const TreatmentForm = () => {
           name="patientId"
           value={formData.patientId}
           onChange={handleChange}
-          required
+          required={true}
         />
         <FormInput
           label="Date of Treatment:"
@@ -227,7 +110,7 @@ const TreatmentForm = () => {
           value={formData.dateOfTreatment}
           onChange={handleChange}
           type="date"
-          required
+          required={true}
         />
         <FormSelect
           label="Treatment Description:"
@@ -236,7 +119,8 @@ const TreatmentForm = () => {
           value={formData.treatmentDescription}
           onChange={handleChange}
           options={treatmentOptions}
-          required
+          required={true}
+          multiple={true}
         />
         <FormSelect
           label="Medications Prescribed:"
@@ -245,7 +129,8 @@ const TreatmentForm = () => {
           value={formData.medicationsPrescribed}
           onChange={handleChange}
           options={medicationOptions}
-          required
+          required={true}
+          multiple={true}
         />
         <FormInput
           label="Cost of Treatment:"
@@ -254,7 +139,7 @@ const TreatmentForm = () => {
           value={formData.costOfTreatment}
           onChange={handleChange}
           type="number"
-          required
+          required={true}
         />
         <button
           type="submit"
