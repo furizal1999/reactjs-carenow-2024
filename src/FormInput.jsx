@@ -1,17 +1,5 @@
-import React from "react";
-
-const FormInput = (
-  props
-  //     {
-  //   label,
-  //   id,
-  //   name,
-  //   value,
-  //   onChange,
-  //   type = "text",
-  //   required = false,
-  //     }
-) => {
+// membuat elemen FormInput
+const FormInput = (props) => {
   return (
     <div className="mb-4">
       <label htmlFor={props.id} className="block mb-2">

@@ -1,26 +1,22 @@
-import React from "react";
+// import React from "react";
+import Select from "react-select";
 
+// membuat element FormSelect
 const FormSelect = (props) => {
   return (
-    <div className="mb-4">
-      <label htmlFor={props.id} className="block mb-2">
-        {props.label}
-      </label>
-      <select
+    <div className="mt-4">
+      <label>{props.label}</label>
+      <Select
         id={props.id}
-        name={props.name}
-        value={props.value}
+        name={props.id}
         onChange={props.onChange}
-        className="border border-gray-300 p-2 rounded-md w-full"
+        value={props.value}
+        options={props.opt}
+        className="basic-multi-select"
+        classNamePrefix="select"
         required={props.required}
-        multiple={props.multiple}
-      >
-        {props.options.map((option, index) => (
-          <option key={index} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+        isMulti
+      />
     </div>
   );
 };
