@@ -4,7 +4,7 @@ import Select from "react-select";
 // membuat element FormSelect
 const FormSelect = (props) => {
   return (
-    <div className="mt-4">
+    <div className="mt-2 mb-2">
       <label>{props.label}</label>
       <Select
         id={props.id}
